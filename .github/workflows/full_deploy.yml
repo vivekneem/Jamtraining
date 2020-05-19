@@ -1,11 +1,10 @@
 name: Studio and Web | Build and Deploy
 on:
-    push:
-      branches: [ master ]
+    repository_dispatch:
+      types: [trigger-first-deploy]  
 jobs:
   studio:
     runs-on: ubuntu-latest
-    if: "contains(github.event.head_commit.message, 'Initial Commit')"
     steps:
       - name: Checkout code
         uses: actions/checkout@v1
@@ -27,7 +26,6 @@ jobs:
           secrets: '["NETLIFY_AUTH_TOKEN", "NETLIFY_SITE_ID"]'
   web:
     runs-on: ubuntu-latest
-    if: "contains(github.event.head_commit.message, 'Initial Commit')"
     steps:
       - name: Checkout code
         uses: actions/checkout@v1
